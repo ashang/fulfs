@@ -1,0 +1,46 @@
+FULFS -- Fuse Using Large File System
+-------------------------------------
+
+The FULFS is a simple hack to store very large files in a filesystem with
+filesize limitation. The primary purpose was putting DVD-size images on FAT32
+and use it transparently to access big (splited) and small (not splited)
+underlying files simultaneously. The files are stored in the form name.aa,
+name.ab, ...
+
+Usage:
+
+./fulfs physical-storage-dir virtual-dir [ chunk size ]
+
+where the chunk size can be completed with a k/K/m/M/g/G suffix, meaning a
+decimal or binary (upper case) factor of the particular unit.
+
+Limitations:
+
+ - Uses only two letter suffix, resulting in 26^2 files. Which means a maximum
+   file size of about 1.3TB on a 2GB-limited filesystem.
+ - owner and permission change is not allowed since atomic operations are not
+   implemented yet.
+
+Installation:
+
+Install pkgconfig, install fuse library (version >> 2.5.0, from
+http://fuse.sourceforge.net or a modern Linux distribution, including the
+development files (eg. libfuse-dev on Debian).
+
+Run "make". Get the resulting binary from the build subdirectory.
+
+LICENSE:
+
+4-clause BSD style license with advertising, see COPYING file inside of this
+source package.
+
+THANKS:
+
+Many thanks to Miklos Szeredi for the FUSE package which allowed a quick and
+almost painless implementation.
+
+HISTORY:
+
+ - clean rewrite of my previous solution, the vlfs plugin for LUFS
+
+ -- Eduard Bloch <blade@debian.org> -- Sun, 18 Nov 2012 18:30:19 +0100
